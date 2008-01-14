@@ -1,8 +1,13 @@
 <xtdl>
+
 <exercise>
+
 <title>文字列操作関数の実装</title>
+
 <group id="teiji001" next="NULL">
 <q>moji000</q>
+<o></o>
+<m></m>
 <h level="all">it001,it002,it003,it004,it005,it006,it007,it011,it015,it016,it021,it023</h>
 <h level="1">
 <add>it009,it013,it018/</add>
@@ -16,9 +21,13 @@
 <add></add>
 <del>it007,it016</del>
 </h>
+<t>ts001</t>
 </group>
+
 <group id="teiji002" next="teiji003">
 <q>moji000,moji001</q>
+<o></o>
+<m></m>
 <h level="all">it001,it006,it007</h>
 <h level="1">
 <add>it009</add>
@@ -32,9 +41,13 @@
 <add></add>
 <del>it007</del>
 </h>
+<t>ts002</t>
 </group>
+
 <group id="teiji003" next="teiji004">
 <q>moji000,moji002</q>
+<o>obj001</o>
+<m>mkf001</m>
 <h level="all">it001,it002,it004,it011,it013,it022,it024</h>
 <h level="1">
 <add>it012</add>
@@ -48,9 +61,13 @@
 <add></add>
 <del>it013</del>
 </h>
+<t>ts003</t>
 </group>
+
 <group id="teiji004" next="NULL">
 <q>moji000,moji003</q>
+<o></o>
+<m></m>
 <h level="all">it001,it003,it005,it015,it016,it022,it024,it025</h>
 <h level="1">
 <add>it018,it019</add>
@@ -64,84 +81,124 @@
 <add></add>
 <del>it016</del>
 </h>
+<t>ts001</t>
 </group>
-<question　qid="moji000">
+
+<question　id="moji000">
 strcpy, strcmp, strcat と全く同じ振舞いをする関数を実装し、動作を確認せよ。
 関数名はそれぞれmy strcpy, my strcmp, my strcat とせよ。
 ここでいう「振舞い」とは、関数の動作だけではなく、引数の数・型、返り値の型、それらの意味なども含まれる。つまり、strcpy の代わりにmy strcpy を用いても全く同じ動作をしなければならない。
 </question>
-<question qid="moji001">
+
+<question id="moji001">
 まず、strcpyと同じ動きをする関数を実装しなさい。
 関数名はmy_strcpyとする。
 strcpyは以下のような動きをする。
 char *strcpy(s,ct) '\0'を含めて文字列 ct を s にコピーし，s を返す
 </question>
-<question qid="moji002">
+
+<question id="moji002">
 次に、strcatと同じ動きをする関数を実装しなさい。
 関数名はmy_strcatとする。
 strcmpは以下の動きをする。
 char *strcmp(cs,ct) 文字列 cs と文字列 ct を比較。cs < ct なら負の数値を，cs == ct なら0を，cs > ct なら正の数値を返す。
 strcmp関数は、二つの文字列を先頭から順に比較し、文字が異なるか、ナル文字に達した時点で比較を終える。そして、最後の文字どうしを比べて、第1引数の方が大きければ正の値を、第2引数の方が大きければ負の値を、等しければ0を返す。
 </question>
-<question qid="moji003">
+
+<question id="moji003">
 最後に、strcmpと同じ動きをする関数を実装しなさい。
 関数名はmy_strcmpとする。
 strcatは以下の動きをする。
 char *strcat(s,ct) 文字列 ct を文字列 s の終りに連結し，s を返す。
 </question>
+
+<object id="obj001">
+<address>alpha.c.oka-pu.ac.jp</address>
+<directory>/home/learn/object/</directory>
+<name>strcpy.o</name>
+</object>
+
+<make id="mkf001">
+<address>alpha.c.oka-pu.ac.jp</address>
+<directory>/home/learn/make/</directory>
+<name>make1</name>
+</make>
+
+
+<test id="ts001">
+<address>alpha.c.oka-pu.ac.jp</address>
+<directory>/home/learn/test/</directory>
+<input>testin001.txt</input>
+<output>testout001.txt</output>
+</test>
+
+<test id="ts002">
+<address>alpha.c.oka-pu.ac.jp</address>
+<directory>/home/learn/test/</directory>
+<input>testinput002.txt</input>
+<output><testoutput002.txt</output>
+</test>
+
+<test id="ts003">
+<address>emerald.c.oka-pu.ac.jp</address>
+<directory>/home/ariyasu/test/<directory>
+<input>tsin003.txt</input>
+<output>tsout003.txt</output>
+</test>
+
 <answer>
-<item hid="it001">
+<item id="it001">
 /* プロトタイプ宣言とmain関数 */
 #include<stdio.h>
 #include<string.h>
 char * my_strcpy(char *,char *);
-<item hid="it002">char * my_strcat(char *,char *);</item>
-<item hid="it003">int my_strcmp(char *,char *);</item>
+<item id="it002">char * my_strcat(char *,char *);</item>
+<item id="it003">int my_strcmp(char *,char *);</item>
 int main(void){
  char str1[50];
  char str2[50];
- <item hid="it021">puts(my_strcpy(str1,"foo"));</item>
- <item hid="it022">puts(strcpy(str1,"foo"));</item>
- <item hid="it023">puts(my_strcpy(str2,"bar"));</item>
- <item hid="it024">puts(strcpy(str2,"bar"));</item>
- <item hid="it025">puts(strcat(str1,str2));</item>
- <item hid="it004">puts(my_strcat(str1,str2));</item>
- <item hid="it005">printf("strcmp : %d\n",my_strcmp(str1,str2));</item>
+ <item id="it021">puts(my_strcpy(str1,"foo"));</item>
+ <item id="it022">puts(strcpy(str1,"foo"));</item>
+ <item id="it023">puts(my_strcpy(str2,"bar"));</item>
+ <item id="it024">puts(strcpy(str2,"bar"));</item>
+ <item id="it025">puts(strcat(str1,str2));</item>
+ <item id="it004">puts(my_strcat(str1,str2));</item>
+ <item id="it005">printf("strcmp : %d\n",my_strcmp(str1,str2));</item>
  return 0;
 }
 </item>
-<item hid="it006">
+<item id="it006">
 char * my_strcpy(char *str, char *ct){
 int n = 0;
   // char配列 ct の先頭文字から順番に str にコピー
-<item hid="it007">
-while(<item hid="it008">ct[n] != '\0'</item>){
-<item hid="it009">str[n] = ct [n];</item>
+<item id="it007">
+while(<item id="it008">ct[n] != '\0'</item>){
+<item id="it009">str[n] = ct [n];</item>
 n++;
 }</item>
 // 配列strの末尾にヌル文字を追加
-<item hid="it010">str[n] = '\0';</item>
+<item id="it010">str[n] = '\0';</item>
 return str;
 }
 </item>
-<item hid="it011">
-char * my_strcat(<item hid="it012">char *str,char *ct</item>){
+<item id="it011">
+char * my_strcat(<item id="it012">char *str,char *ct</item>){
 // char配列 str の末尾の番地に ct をコピーする
-<item hid="it013">my_strcpy( &str[<item hid="it014">strlen(str)</item> ], ct);</item>
+<item id="it013">my_strcpy( &str[<item id="it014">strlen(str)</item> ], ct);</item>
 return str;
 }
 </item>
-<item hid="it015">
+<item id="it015">
 int my_strcmp(char *str, char *ct){
 int n=0;
 // strとctの文字が異なるか，どちらか一方がヌル文字になるまで比較する
-<item hid="it016">
-while( (<item hid="it017">str[n] == ct[n]</item> ) && (<item hid="it018">str[n] != '\0'</item> ) && (ct[n] != '\0')){
-<item hid="it019">n++;</item>
+<item id="it016">
+while( (<item id="it017">str[n] == ct[n]</item> ) && (<item id="it018">str[n] != '\0'</item> ) && (ct[n] != '\0')){
+<item id="it019">n++;</item>
 }
 </item>
 // 最後の文字同士を比較し，差を返す。
-return<item hid="it020">(unsigned char)str[n]</item> - (unsigned char)ct[n];
+return<item id="it020">(unsigned char)str[n]</item> - (unsigned char)ct[n];
 }
 </item>
 </answer>
