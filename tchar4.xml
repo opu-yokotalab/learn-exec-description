@@ -1,0 +1,177 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+<xtdl>
+<section title="">
+<exercise>
+
+<group id="common" next="nil">
+<q id=""/>
+<o id=""/>
+<m id=""/>
+<h level="all" id="" cid=""/>
+<t id=""/>
+</group>
+
+<group id="teiji001" next="nil" title="文字列操作関数の実装">
+<q id="moji000"/>
+<o id="obj012,ob02"/>
+<m id="make001,make002"/>
+<h level="all" id =
+"it001,it002,it003,it004,it005,it007,it010,it012,it013,it015,it18,it021,it022,it024,it028,it029,it031,it033,it035,it037,it038,it040" cid="com001,com002,com003,com004,com005,com006"/>
+<h level="1" id="it016,it019,it025,it027,it034,it039" cid=""/>
+<h level="2" id="" cid="it019,it032"/>
+<h level="3" id="" cid=""/>
+<t id="ts001"/>
+</group>
+
+<group id="teiji002" next="teiji003" title="strcpyの実装">
+<q id="moji000,moji001"/>
+<o id=""/>
+<m id=""/>
+<h level="all" id="it001,it004,it005,it007,it012,it013,it021" cid="com001,com002,com006"/>
+<h level="1" id="it015,it017,it018,it019" cid=""/>
+<h level="2" id="it015,it018" cid=""/>
+<h level="3" id="" cid=""/>
+<t id="ts002"/>
+</group>
+
+<group id="teiji003" next="teiji004" title="strcatの実装">
+<q id="moji000,moji002"/>
+<o id="obj001"/>
+<m id="mkf001"/>
+<h level="all" id="it001,it002,it004,it006,it008,it010,it012,it022,it024,it028" cid="com001,com003"/>
+<h level="1" id="it023,it025,it027" cid=""/>
+<h level="2" id="it025,it027" cid=""/>a
+<h level="3" id="" cid=""/>
+<t id="ts003"/>
+</group>
+
+<group id="teiji004" next="nil" title="strcmpの実装">
+<q id="moji000,moji003"/>
+<o id=""/>
+<m id=""/>
+<h level="all" id="it001,it003,it006,it008,it009,it011,it012,it029,it038,it040" cid="com001,com004,com005"/>
+<h level="1" id="it031,it032,it033,it035,it039,it037" cid=""/>
+<h level="2" id="it031,it033,it035" cid=""/>
+<h level="3" id="" cid=""/>
+<t id="ts001"/>
+</group>
+
+<download>
+<object id="obj001">
+<uri>alpha.c.oka-pu.ac.jp:/home/learn/object/</uri>
+<name>strcpy.o</name>
+</object>
+
+<make id="mkf001">
+<uri>alpha.c.oka-pu.ac.jp:/home/learn/make/</uri>
+<name>make1</name>
+</make>
+
+
+<test id="ts001">
+<uri>alpha.c.oka-pu.ac.jp:/home/learn/test/</uri>
+<input>testin001.txt</input>
+<output>testout001.txt</output>
+</test>
+
+<test id="ts002">
+<uri>alpha.c.oka-pu.ac.jp:/home/learn/test/</uri>
+<input>testinput002.txt</input>
+<output>testoutput002.txt</output>
+</test>
+
+<test id="ts003">
+<uri>emerald.c.oka-pu.ac.jp:/home/ariyasu/test</uri>
+<in>tsin003.txt</in>
+<output>tsout003.txt</output>
+</test>
+</download>
+
+
+
+<question id="moji000">
+strcpy, strcmp, strcat と全く同じ振舞いをする関数を実装し、動作を確認せよ。
+関数名はそれぞれmy strcpy, my strcmp, my strcat とせよ。
+ここでいう「振舞い」とは、関数の動作だけではなく、引数の数・型、返り値の型、それらの意味なども含まれる。つまり、strcpy の代わりにmy strcpy を用いても全く同じ動作をしなければならない。
+</question>
+
+<question id="moji001">
+まず、strcpyと同じ動きをする関数を実装しなさい。
+関数名はmy_strcpyとする。
+strcpyは以下のような動きをする。
+char *strcpy(s,ct) &apos;\0&apos;を含めて文字列 ct を s にコピーし，s を返す
+</question>
+
+<question id="moji002">
+次に、strcatと同じ動きをする関数を実装しなさい。
+関数名はmy_strcatとする。
+strcmpは以下の動きをする。
+char *strcmp(cs,ct) 文字列 cs と文字列 ct を比較。cs &lt; ct なら負の数値を，cs == ct なら0を，cs &gt; ct なら正の数値を返す。
+strcmp関数は、二つの文字列を先頭から順に比較し、文字が異なるか、ナル文字に達した時点で比較を終える。そして、最後の文字どうしを比べて、第1引数の方が大きければ正の値を、第2引数の方が大きければ負の値を、等しければ0を返す。
+</question>
+
+<question id="moji003">
+最後に、strcmpと同じ動きをする関数を実装しなさい。
+関数名はmy_strcmpとする。
+strcatは以下の動きをする。
+char *strcat(s,ct) 文字列 ct を文字列 s の終りに連結し，s を返す。
+</question>
+
+<source>
+
+<comment id="com001">/* プロトタイプ宣言とmain関数 */</comment>
+<item id="it001">
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+char * my_strcpy(char *,char *);
+</item>
+<item id="it002">char * my_strcat(char *,char *);</item>
+<item id="it003">int my_strcmp(char *,char *);</item>
+<item id="it004">int main(void){
+ char str1[50];
+ char str2[50];
+</item>
+ <item id="it005">puts(my_strcpy(str1,&quot;foo&quot;));</item>
+ <item id="it006">puts(strcpy(str1,&quot;foo&quot;));</item>
+ <item id="it007">puts(my_strcpy(str2,&quot;bar&quot;));</item>
+ <item id="it008">puts(strcpy(str2,&quot;bar&quot;));</item>
+ <item id="it009">puts(strcat(str1,str2));</item>
+ <item id="it010">puts(my_strcat(str1,str2));</item>
+ <item id="it011">printf("strcmp : %d\n",my_strcmp(str1,str2));</item>
+<item id="it012"> return 0;
+}</item>
+<item id="it013">char * my_strcpy(char *str, char *ct){
+int n = 0;</item>
+<comment id="com002">// char配列 ct の先頭文字から順番に str にコピー</comment>
+<item id="it015">while(</item>
+<item id="it016">ct[n] != '\0'</item>){
+<item id="it017">str[n] = ct [n];</item>
+<item id="it018">n++;
+}</item>
+<comment id="com006">// 配列strの末尾にヌル文字を追加</comment>
+<item id="it019">str[n] =</item><item id="it020"> &apos;\0;&apos;</item>
+<item id="it021">return str;
+}</item>
+<item id="it022">char * my_strcat(</item><item id="it023">char *str,char *ct</item>
+<item ="it024">){</item>
+<comment id="com003">// char配列 str の末尾の番地に ct をコピーする</comment>
+<item id="it025">my_strcpy( &str[</item><item id="it026">strlen(str)</item><item id="it027"> ], ct);</item>
+<item id="it028">return str;
+}</item>
+<item id="it029">
+int my_strcmp(char *str, char *ct){
+int n=0;</item>
+<comment id="com004">// strとctの文字が異なるか，どちらか一方がヌル文字になるまで比較する</comment>
+<item id="it031">
+while( (</item><item id="it032">str[n] == ct[n]</item><item ="it033">
+)&amp;&amp; (,</item><item id="it034">str[n] != &apos;\0&apos;</item><item ="it035"> ) &amp;&amp; (ct[n] != &apos;\0&apos;)){</item>
+<item id="it036">n++;</item>
+<item ="it037">}</item>
+<comment id="com005">// 最後の文字同士を比較し，差を返す。</comment>
+<item id="it038">return</item><item id="it039">(unsigned char)str[n]</item><item id="it040"> - (unsigned char)ct[n];
+}</item>
+
+</source>
+</exercise>
+</section>
+</xtdl>
