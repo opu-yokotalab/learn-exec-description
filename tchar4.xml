@@ -1,6 +1,6 @@
  <?xml version="1.0" encoding="UTF-8" ?>
 <xtdl>
-<section title="">
+<section id="1" title="">
 <exercise>
 
 <group id="common" next="nil">
@@ -92,7 +92,8 @@
 <question id="moji000">
 strcpy, strcmp, strcat と全く同じ振舞いをする関数を実装し、動作を確認せよ。
 関数名はそれぞれmy strcpy, my strcmp, my strcat とせよ。
-ここでいう「振舞い」とは、関数の動作だけではなく、引数の数・型、返り値の型、それらの意味なども含まれる。つまり、strcpy の代わりにmy strcpy を用いても全く同じ動作をしなければならない。
+ここでいう「振舞い」とは、関数の動作だけではなく、引数の数・型、返り値の型、それらの意味なども含まれる。
+つまり、strcpy の代わりにmy strcpy を用いても全く同じ動作をしなければならない。
 </question>
 
 <question id="moji001">

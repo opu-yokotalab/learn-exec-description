@@ -24,10 +24,7 @@ end
 # 画面を出力する関数
 def view(body_str)
   print "Content-type: text/html\n\n"
-  print "<html><head> <meta content=\"text/html; charset=utf-8\" http-equiv=\"content-type\"> <title>演習提示スクリプト</title>"
-  print "<link href=\"learning.css\" rel=\"stylesheet\" type=\"text/css\">"
-
-  print "<link href=\"prettify.css\" type=\"text/css\" rel=\"stylesheet\" /> <script type=\<title>X-TDL Viewer</title>"
+  print "<html><head><title>X-TDL Viewer</title>"
   print "<link href=\"learning.css\" rel=\"stylesheet\" type=\"text/css\">"
 
   print "<link href=\"prettify.css\" type=\"text/css\" rel=\"stylesheet\" /> <script type=\"text/javascript\" src=\"prettify.js\"></script>"
