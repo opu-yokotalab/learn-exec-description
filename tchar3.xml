@@ -16,7 +16,7 @@
 <o id="obj012,ob02"/>
 <m id="make001,make002"/>
 <h level="all" id =
-"it001,it002,it003,it004,it005,it007,it010,it012,it013,it015,it18,it021,it022,it024,it028,it029,it031,it033,it035,it037,it038,it040" cid="com001,com002,com003,com004,com005,com006"/>
+"it001,it002,it003,it004,it005,it007,it010,it012,it013,it014,it015,it18,it021,it022,it024,it028,it029,it031,it033,it035,it037,it038,it040" cid="com001,com002,com003,com004,com005,com006"/>
 <h level="1" id="it016,it019,it025,it027,it034,it039" cid=""/>
 <h level="2" id="" cid="it019,it032"/>
 <h level="3" id="" cid=""/>
@@ -27,7 +27,7 @@
 <q id="moji000,moji001"/>
 <o id=""/>
 <m id=""/>
-<h level="all" id="it001,it004,it005,it007,it012,it013,it021" cid="com001,com002,com006"/>
+<h level="all" id="it001,it004,it005,it007,it012,it013,it014,it021" cid="com001,com002,com006"/>
 <h level="1" id="it015,it017,it018,it019" cid=""/>
 <h level="2" id="it015,it018" cid=""/>
 <h level="3" id="" cid=""/>
@@ -88,34 +88,35 @@
 </download>
 
 
-
-<question id="moji000">
+<question>
+<item id="moji000">
 strcpy, strcmp, strcat と全く同じ振舞いをする関数を実装し、動作を確認せよ。
 関数名はそれぞれmy strcpy, my strcmp, my strcat とせよ。
 ここでいう「振舞い」とは、関数の動作だけではなく、引数の数・型、返り値の型、それらの意味なども含まれる。
 つまり、strcpy の代わりにmy strcpy を用いても全く同じ動作をしなければならない。
-</question>
+</item>
 
-<question id="moji001">
+<item id="moji001">
 まず、strcpyと同じ動きをする関数を実装しなさい。
 関数名はmy_strcpyとする。
 strcpyは以下のような動きをする。
 char *strcpy(s,ct) &apos;\0&apos;を含めて文字列 ct を s にコピーし，s を返す
-</question>
+</item>
 
-<question id="moji002">
+<item id="moji002">
 次に、strcatと同じ動きをする関数を実装しなさい。
 関数名はmy_strcatとする。
 strcmpは以下の動きをする。
 char *strcmp(cs,ct) 文字列 cs と文字列 ct を比較。cs &lt; ct なら負の数値を，cs == ct なら0を，cs &gt; ct なら正の数値を返す。
 strcmp関数は、二つの文字列を先頭から順に比較し、文字が異なるか、ナル文字に達した時点で比較を終える。そして、最後の文字どうしを比べて、第1引数の方が大きければ正の値を、第2引数の方が大きければ負の値を、等しければ0を返す。
-</question>
+</item>
 
-<question id="moji003">
+<item id="moji003">
 最後に、strcmpと同じ動きをする関数を実装しなさい。
 関数名はmy_strcmpとする。
 strcatは以下の動きをする。
 char *strcat(s,ct) 文字列 ct を文字列 s の終りに連結し，s を返す。
+</item>
 </question>
 
 <source>
@@ -145,7 +146,7 @@ char * my_strcpy(char *,char *);
 int n = 0;</item>
 <comment id="com002">// char配列 ct の先頭文字から順番に str にコピー</comment>
 <item id="it015">while(</item>
-<item id="it016">ct[n] != '\0'</item>){
+<item id="it016">ct[n] != '\0'</item><item id="it014">){</item>
 <item id="it017">str[n] = ct [n];</item>
 <item id="it018">n++;
 }</item>

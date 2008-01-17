@@ -44,6 +44,7 @@ def ExerciseRead(dom_obj,eid,level)
   obj_buff = ""
   make_buff = ""
   hint_buff = ""
+  com_buff = ""
   ts_buff = ""
   
   #問題内容を書き込むためにファイルを開く
@@ -72,8 +73,12 @@ def ExerciseRead(dom_obj,eid,level)
             elsif el.name["h"] 
               if el.attributes["level"] == "all" 
                 hint_buff += el.attributes["id"]
+                com_buff += el.attributes["cid"]
               elsif el.attributes["level"].to_i == level
-                hint_buff += "," + el.attributes["id"]
+                hint_buff += ","
+                hint_buff += el.attributes["id"]
+                com_buff += ","
+                com_buff += el.attributes["cid"]
               end
               #テストダウンロード用のID取得
             elsif el.name["t"]
@@ -117,28 +122,34 @@ def ExerciseRead(dom_obj,eid,level)
     elsif elem.name["question"] #question要素ならば
       #問題を提示するためのIDを配列に入れる
       ques = ques_buff.split(',')
-      for i in ques
-        #idが一致する問題の記述内容を探し出す
-        if elem.attributes["id"] == i
-          out_q.print(elem.text)
-          str_buff += elem.text.gsub("\n","<br>")
-          #str_buff.gsub('\n',"<br>")
+      elem.each_element do |el|
+        for i in ques
+          #idが一致する問題の記述内容を探し出す
+          if el.attributes["id"] == i
+            out_q.print(el.text)
+            str_buff += el.text#.gsub("\n","<br>\n")
+          end
         end
       end
     elsif elem.name["source"] #source要素ならば
+      str_buff += "<br><b>ソースコード</b><br>"
       #ヒントを提示するためのIDを配列に入れる
       num = 1
       hints = hint_buff.split(',')
+      com = com_buff.split(',')
+
       elem.each_element do |el|
         #子要素がitemなら
         if el.name["item"]
           #fg = false
           for i in hints
             #idが一致したもののテキストを取り出す
-            if el.attributes["id"] ==i
-                  #画面に表示する場合
-                  #str_buff += el.text
-                  #str_buff += "\n"
+            if el.attributes["id"] == i
+              #画面に表示する場合
+              str_buff += "<font color=\"blue\">"
+              str_buff += el.text
+              str_buff += "\n"
+              str_buff += "</font>"
               out_s.print(el.text)
               out_s.print("\n")
               #fg = true
@@ -152,6 +163,16 @@ def ExerciseRead(dom_obj,eid,level)
           #end
           #子要素がcommentなら
         elsif el.name["comment"]
+          for j in com
+            if el.attributes["id"] == j
+              out_s.print(el.text)
+              out_s.print("\n")
+              str_buff += "<font color=\"green\">"
+              str_buff += el.text
+              str_buff += "\n"
+              str_buff += "</font>"
+            end
+          end
         end
       end
     end
@@ -159,7 +180,7 @@ def ExerciseRead(dom_obj,eid,level)
   #書き込み用ファイルのクローズ
   out_q.close
   out_s.close
-  return str_buff
+  return str_buff.gsub("\n","<br>\n")
 end
 
 
@@ -224,10 +245,10 @@ str_buff = ""
 
 # Form入力値のチェック
 src_name = cgi["src_name"]
-dir_name = "/work/"#cgi["dir"]
-id = "1"#cgi["id"]
+dir_name = cgi["dir"]
+id = cgi["id"]
 eid = cgi["eid"]
-level = cgi["lebel"]
+level = cgi["level"]
 err_code = srcNameCheck(src_name,dir_name,eid)
 
 #入力値のチェック
@@ -259,7 +280,7 @@ doc = nil
 file = File.new(file_name)
 doc = REXML::Document.new file
 if doc
-  body_str = XTDLNodeSearch(doc.root,eid,level)
+  body_str = XTDLNodeSearch(doc.root,eid,level.to_i)
 else
   body_str = "<h3>Error!!,/h3>"
 end
