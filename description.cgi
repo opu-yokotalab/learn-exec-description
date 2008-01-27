@@ -5,7 +5,7 @@ require "kconv"
 require "rexml/document"
 require 'net/http'
 
-#ÆşÎÏ¤µ¤ì¤¿ÃÍ¤ò¥Á¥§¥Ã¥¯¤¹¤ë´Ø¿ô
+#å…¥åŠ›ã•ã‚ŒãŸå€¤ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹é–¢æ•°
 def srcNameCheck(src_name,dir_name,e_id)
   err_code = 0
   if src_name.length == 0
@@ -21,10 +21,10 @@ def srcNameCheck(src_name,dir_name,e_id)
   return err_code
 end
 
-# ²èÌÌ¤ò½ĞÎÏ¤¹¤ë´Ø¿ô
+# ç”»é¢ã‚’å‡ºåŠ›ã™ã‚‹é–¢æ•°
 def view(body_str)
   print "Content-type: text/html\n\n"
-  print "<html><head> <meta content=\"text/html; charset=utf-8\" http-equiv=\"content-type\"> <title>±é½¬Äó¼¨¥¹¥¯¥ê¥×¥È</title>"
+  print "<html><head> <meta content=\"text/html; charset=utf-8\" http-equiv=\"content-type\"> <title>æ¼”ç¿’æç¤ºã‚¹ã‚¯ãƒªãƒ—ãƒˆ</title>"
   print "<link href=\"learning.css\" rel=\"stylesheet\" type=\"text/css\">"
 
   print "<link href=\"prettify.css\" type=\"text/css\" rel=\"stylesheet\" /> <script type=\"text/javascript\" src=\"prettify.js\"></script>"
@@ -47,28 +47,28 @@ def ExerciseRead(dom_obj,eid,level)
   com_buff = ""
   ts_buff = ""
   
-  #ÌäÂêÆâÍÆ¤ò½ñ¤­¹ş¤à¤¿¤á¤Ë¥Õ¥¡¥¤¥ë¤ò³«¤¯
+  #å•é¡Œå†…å®¹ã‚’æ›¸ãè¾¼ã‚€ãŸã‚ã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
   out_q = open("question.txt","w")
-  #¥½¡¼¥¹¥Õ¥¡¥¤¥ëÍÑ¤Î¥³¡¼¥É¤ò½ñ¤­¹ş¤à¤¿¤á¤Î¥Õ¥¡¥¤¥ë¤ò³«¤¯
+  #ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ç”¨ã®ã‚³ãƒ¼ãƒ‰ã‚’æ›¸ãè¾¼ã‚€ãŸã‚ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
   out_s = open("source.txt","w")
 
   dom_obj.each_element do |elem|
 
-    if elem.name["group"] #groupÍ×ÁÇ¤Ê¤é¤Ğ
+    if elem.name["group"] #groupè¦ç´ ãªã‚‰ã°
       
       if elem.attributes["id"] == eid
         elem.each_element do |el|
           
           if el.attributes["id"] != ""
-            #ÌäÂêÄó¼¨ÍÑ¤ÎID¼èÆÀ
+            #å•é¡Œæç¤ºç”¨ã®IDå–å¾—
             if el.name["q"]
               ques_buff += el.attributes["idrefs"]
             elsif el.name["d"]
-              #¥ª¥Ö¥¸¥§¥¯¥È¥À¥¦¥ó¥í¡¼¥ÉÍÑ¤ÎID¼èÆÀ
+              #ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ç”¨ã®IDå–å¾—
               obj_buff += el.attributes["idref"]
-              #¥Æ¥¹¥È¥À¥¦¥ó¥í¡¼¥ÉÍÑ¤ÎID¼èÆÀ
+              #ãƒ†ã‚¹ãƒˆãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ç”¨ã®IDå–å¾—
               ts_buff += el.attributes["tidref"]
-              #¥Ò¥ó¥ÈÄó¼¨ÍÑ¤ÎID¤ò¼èÆÀ
+              #ãƒ’ãƒ³ãƒˆæç¤ºç”¨ã®IDã‚’å–å¾—
             elsif el.name["h"] 
               if el.attributes["level"] == "all" 
                 hint_buff += el.attributes["idrefs"]
@@ -84,67 +84,67 @@ def ExerciseRead(dom_obj,eid,level)
         end
         
         
-        #¥ª¥Ö¥¸¥§¥¯¥È¤ò¥À¥¦¥ó¥í¡¼¥É¤¹¤ë¤¿¤á¤ÎID¤òÇÛÎó¤ËÆş¤ì¤ë
+        #ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãŸã‚ã®IDã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
         if elem.length !=0
           obj = obj_buff.split(',')
-          # print "¥ª¥Ö¥¸¥§¥¯¥È"
+          # print "ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ"
           # print obj
         end
-        #makefile¤ò¥À¥¦¥ó¥í¡¼¥É¤¹¤ë¤¿¤á¤ÎID¤òÇÛÎó¤ËÆş¤ì¤ë
+        #makefileã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãŸã‚ã®IDã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
         #if make_buff.length != 0
         #  make = make_buff.split(',')
-          #print "¥á¡¼¥¯¥Õ¥¡¥¤¥ë"
+          #print "ãƒ¡ãƒ¼ã‚¯ãƒ•ã‚¡ã‚¤ãƒ«"
           #print make
         #end
 
         
-        #¥Æ¥¹¥È¤ò¥À¥¦¥ó¥í¡¼¥É¤¹¤ë¤¿¤á¤ÎID¤òÇÛÎó¤ËÆş¤ì¤ë
+        #ãƒ†ã‚¹ãƒˆã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãŸã‚ã®IDã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
         if ts_buff.length != 0
           ts = ts_buff.split(',')
-          #print "¥Æ¥¹¥È"
+          #print "ãƒ†ã‚¹ãƒˆ"
           #print ts
         end
       end
-      ##³ÆID¤Î³ÊÇ¼¥ê¥¹¥ÈÌ¾
+      ##å„IDã®æ ¼ç´ãƒªã‚¹ãƒˆå
       #
-      #ÌäÂê         :ques
-      #¥ª¥Ö¥¸¥§¥¯¥È :obj
+      #å•é¡Œ         :ques
+      #ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ :obj
       #makefile     :make
-      #¥Ò¥ó¥È       :hints
-      #¥Æ¥¹¥È¥Ç¡¼¥¿ :ts
+      #ãƒ’ãƒ³ãƒˆ       :hints
+      #ãƒ†ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿ :ts
       ###
       
-    elsif elem.name["resource"] #¶µºà¥ê¥½¡¼¥¹¤Ê¤é¤Ğ
+    elsif elem.name["resource"] #æ•™æãƒªã‚½ãƒ¼ã‚¹ãªã‚‰ã°
       elem.each_element do |ment|
-        if ment.name["download"] #downloadÍ×ÁÇ¤Ê¤é¤Ğ
+        if ment.name["download"] #downloadè¦ç´ ãªã‚‰ã°
           
-        elsif ment.name["question"] #questionÍ×ÁÇ¤Ê¤é¤Ğ
-          #ÌäÂê¤òÄó¼¨¤¹¤ë¤¿¤á¤ÎID¤òÇÛÎó¤ËÆş¤ì¤ë
+        elsif ment.name["question"] #questionè¦ç´ ãªã‚‰ã°
+          #å•é¡Œã‚’æç¤ºã™ã‚‹ãŸã‚ã®IDã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
           ques = ques_buff.split(',')
           ment.each_element do |el|
             for i in ques
-              #id¤¬°ìÃ×¤¹¤ëÌäÂê¤Îµ­½ÒÆâÍÆ¤òÃµ¤·½Ğ¤¹
+              #idãŒä¸€è‡´ã™ã‚‹å•é¡Œã®è¨˜è¿°å†…å®¹ã‚’æ¢ã—å‡ºã™
               if el.attributes["id"] == i
                 out_q.print(el.text)
                 str_buff += el.text#.gsub("\n","<br>\n")
               end
             end
           end
-        elsif ment.name["source"] #sourceÍ×ÁÇ¤Ê¤é¤Ğ
-          str_buff += "<br><b>¥½¡¼¥¹¥³¡¼¥É</b><br>"
-          #¥Ò¥ó¥È¤òÄó¼¨¤¹¤ë¤¿¤á¤ÎID¤òÇÛÎó¤ËÆş¤ì¤ë
+        elsif ment.name["source"] #sourceè¦ç´ ãªã‚‰ã°
+          str_buff += "<br><b>ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰</b><br>"
+          #ãƒ’ãƒ³ãƒˆã‚’æç¤ºã™ã‚‹ãŸã‚ã®IDã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
           num = 1
           hints = hint_buff.split(',')
           com = com_buff.split(',')
           
           ment.each_element do |el|
-            #»ÒÍ×ÁÇ¤¬item¤Ê¤é
+            #å­è¦ç´ ãŒitemãªã‚‰
             if el.name["item"]
               #fg = false
               for i in hints
-                #id¤¬°ìÃ×¤·¤¿¤â¤Î¤Î¥Æ¥­¥¹¥È¤ò¼è¤ê½Ğ¤¹
+                #idãŒä¸€è‡´ã—ãŸã‚‚ã®ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’å–ã‚Šå‡ºã™
                 if el.attributes["id"] == i
-                  #²èÌÌ¤ËÉ½¼¨¤¹¤ë¾ì¹ç
+                  #ç”»é¢ã«è¡¨ç¤ºã™ã‚‹å ´åˆ
                   str_buff += "<font color=\"blue\">"
                   str_buff += el.text
                   str_buff += "\n"
@@ -160,7 +160,7 @@ def ExerciseRead(dom_obj,eid,level)
               #  str_buff +=  "]\n"
               #  num = num + 1
               #end
-              #»ÒÍ×ÁÇ¤¬comment¤Ê¤é
+              #å­è¦ç´ ãŒcommentãªã‚‰
             elsif el.name["comment"]
               for j in com
                 if el.attributes["id"] == j
@@ -172,34 +172,32 @@ def ExerciseRead(dom_obj,eid,level)
                   str_buff += "</font>"
                 end
               end
-            else
             end
           end
         end
       end
-      else
     end
   end
-  #½ñ¤­¹ş¤ßÍÑ¥Õ¥¡¥¤¥ë¤Î¥¯¥í¡¼¥º
+  #æ›¸ãè¾¼ã¿ç”¨ãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¯ãƒ­ãƒ¼ã‚º
   out_q.close
   out_s.close
   return str_buff.gsub("\n","<br>\n")
 end
 
-#ºÆµ¢Åª¤Ë¥Î¡¼¥É¤ò¸¡º÷
+#å†å¸°çš„ã«ãƒãƒ¼ãƒ‰ã‚’æ¤œç´¢
 def XTDLNodeSearch(dom_obj,eid,level)
-  #°ÕÌ£Í×ÁÇÇÛÎó
+  #æ„å‘³è¦ç´ é…åˆ—
   semantic_elem_array = ["explanation","example","illustration","definition","program","algorithm","proof","simulation","exercise"]
   
   
   str_buff = ""
-  flag = false #È½Äê¥Õ¥é¥°
-  if dom_obj.name["xtdl"] # xtdlÍ×ÁÇ¤Ê¤é¤Ğ
+  flag = false #åˆ¤å®šãƒ•ãƒ©ã‚°
+  if dom_obj.name["xtdl"] # xtdlè¦ç´ ãªã‚‰ã°
     dom_obj.each_element do |elem|
       str_buff += XTDLNodeSearch(elem,eid,level)
     end
     
-  elsif dom_obj.name["section"] # sectionÍ×ÁÇ¤Ê¤é¤Ğ
+  elsif dom_obj.name["section"] # sectionè¦ç´ ãªã‚‰ã°
     if dom_obj.attributes["title"] != ""
       str_buff += "<h2>" + dom_obj.attributes["title"].toutf8 + " <span style=\"color:red\">ID : " + dom_obj.attributes["id"].toutf8 + "</span></h2>"
     else
@@ -209,17 +207,17 @@ def XTDLNodeSearch(dom_obj,eid,level)
       str_buff += XTDLNodeSearch(elem,eid,level)
     end
     
-  elsif dom_obj.name["exercise"] #exerciseÍ×ÁÇ¤Ê¤é¤Ğ
-    str_buff += "<b>±é½¬ÌäÂê</b><p>"
+  elsif dom_obj.name["exercise"] #exerciseè¦ç´ ãªã‚‰ã°
+    str_buff += "<b>æ¼”ç¿’å•é¡Œ</b><p>"
     str_buff += ExerciseRead(dom_obj,eid,level)
     str_buff += "</p>"
-  else # °ÕÌ£Í×ÁÇ¤Ê¤é¤Ğ
+  else # æ„å‘³è¦ç´ ãªã‚‰ã°
     if dom_obj.attributes["title"] != ""
       str_buff += "<h3>" + dom_obj.attributes["title"].toutf8 + " <span style=\"color:red\">ID : " + dom_obj.attributes["id"].toutf8 + "</span></h3>"
     else
       str_buff += "<br /><br />"
     end
-    #»Ò¤ÏHTML?¤Ş¤¿¤Ï°ÕÌ£Í×ÁÇ?
+    #å­ã¯HTML?ã¾ãŸã¯æ„å‘³è¦ç´ ?
     semantic_elem_array.each do |semantic_elem|
       if dom_obj.elements["./#{semantic_elem}"]
         flag = true
@@ -227,12 +225,12 @@ def XTDLNodeSearch(dom_obj,eid,level)
     end
     
     if flag
-      #°ÕÌ£Í×ÁÇ¤Î¾ì¹ç
+      #æ„å‘³è¦ç´ ã®å ´åˆ
       dom_obj.each_element do |elem|
         str_buff += XTDLNodeSearch(elem,eid,level)
       end
     else
-      # HTML¤Î¾ì¹ç
+      # HTMLã®å ´åˆ
       dom_obj.each do |elem|
         str_buff += elem.to_s.toutf8
       end
@@ -245,7 +243,7 @@ end
 cgi = CGI.new
 str_buff = ""
 
-# FormÆşÎÏÃÍ¤Î¥Á¥§¥Ã¥¯
+# Formå…¥åŠ›å€¤ã®ãƒã‚§ãƒƒã‚¯
 src_name = cgi["src_name"]
 dir_name = cgi["dir"]
 id = cgi["id"]
@@ -253,30 +251,30 @@ eid = cgi["eid"]
 level = cgi["level"]
 err_code = srcNameCheck(src_name,dir_name,eid)
 
-#ÆşÎÏÃÍ¤Î¥Á¥§¥Ã¥¯
+#å…¥åŠ›å€¤ã®ãƒã‚§ãƒƒã‚¯
 if err_code > 0 then
   body_str = "<h3>Application Error!!</h3>"
   case err_code
   when 1 then
-    body_str += "<p>¥ê¥½¡¼¥¹Ì¾¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤<p>"
+    body_str += "<p>ãƒªã‚½ãƒ¼ã‚¹åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„<p>"
   when 2 then
-    body_str += "<p>ºî¶È¥Õ¥©¥ë¥ÀÌ¾¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤</p>"
+    body_str += "<p>ä½œæ¥­ãƒ•ã‚©ãƒ«ãƒ€åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„</p>"
   when 3 then
-    body_str += "<p>ºî¶È¥Õ¥©¥ë¥ÀÌ¾¡¢¤ª¤è¤Ó¥ê¥½¡¼¥¹Ì¾¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤</p>"
+    body_str += "<p>ä½œæ¥­ãƒ•ã‚©ãƒ«ãƒ€åã€ãŠã‚ˆã³ãƒªã‚½ãƒ¼ã‚¹åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„</p>"
   when 4 then
-    body_str += "<p>±é½¬id¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤<p>"
+    body_str += "<p>æ¼”ç¿’idã‚’å…¥åŠ›ã—ã¦ãã ã•ã„<p>"
   when 5 then
-    body_str += "<p>¥ê¥½¡¼¥¹Ì¾¤È±é½¬id¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤</p>"
+    body_str += "<p>ãƒªã‚½ãƒ¼ã‚¹åã¨æ¼”ç¿’idã‚’å…¥åŠ›ã—ã¦ãã ã•ã„</p>"
   when 6 then
-    body_str += "<p>ºî¶È¥Õ¥©¥ë¥ÀÌ¾¤È±é½¬id¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤</p>"
+    body_str += "<p>ä½œæ¥­ãƒ•ã‚©ãƒ«ãƒ€åã¨æ¼”ç¿’idã‚’å…¥åŠ›ã—ã¦ãã ã•ã„</p>"
   when 7 then
-    body_str += "<p>¥ê¥½¡¼¥¹Ì¾¤Èºî¶È¥Õ¥©¥ë¥ÀÌ¾¡¢±é½¬id¤òÆşÎÏ¤·¤Æ¤¯¤À¤µ¤¤<p>"
+    body_str += "<p>ãƒªã‚½ãƒ¼ã‚¹åã¨ä½œæ¥­ãƒ•ã‚©ãƒ«ãƒ€åã€æ¼”ç¿’idã‚’å…¥åŠ›ã—ã¦ãã ã•ã„<p>"
   end
   view(body_str.toutf8)
   return
 end
 
-#¥Õ¥¡¥¤¥ëÆÉ¤ß¹ş¤ß
+#ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 file_name = "#{src_name}.xml"
 doc = nil
 file = File.new(file_name)
@@ -287,5 +285,5 @@ else
   body_str = "<h3>Error!!,/h3>"
 end
 
-#·ë²Ì½ĞÎÏ
+#çµæœå‡ºåŠ›
 view(body_str.toutf8)
